@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:list_view_performance/models/data.dart';
+// ignore: implementation_imports
+import 'package:flutter/src/semantics/semantics.dart';
 
 class CustomDataTile extends LeafRenderObjectWidget {
   const CustomDataTile({
@@ -91,68 +93,69 @@ class CustomDataRenderObject extends RenderBox {
     }
 
     _data = value;
-    _textPainter1.text = TextSpan(
+
+    textSpan1 = TextSpan(
       text: _data.field1,
     );
-    _textPainter2.text = TextSpan(
+    textSpan2 = TextSpan(
       text: _data.field2,
     );
-    _textPainter3.text = TextSpan(
+    textSpan3 = TextSpan(
       text: _data.field3,
     );
-    _textPainter4.text = TextSpan(
+    textSpan4 = TextSpan(
       text: _data.field4,
     );
-    _textPainter5.text = TextSpan(
+    textSpan5 = TextSpan(
       text: _data.field5,
     );
-    _textPainter6.text = TextSpan(
+    textSpan6 = TextSpan(
       text: _data.field6,
     );
-    _textPainter7.text = TextSpan(
+    textSpan7 = TextSpan(
       text: _data.field7,
     );
-    _textPainter8.text = TextSpan(
+    textSpan8 = TextSpan(
       text: _data.field8,
     );
-    _textPainter9.text = TextSpan(
+    textSpan9 = TextSpan(
       text: _data.field9,
     );
-    _textPainter10.text = TextSpan(
+    textSpan10 = TextSpan(
       text: _data.field10,
     );
-    _textPainter11.text = TextSpan(
+    textSpan11 = TextSpan(
       text: _data.field11,
     );
-    _textPainter12.text = TextSpan(
+    textSpan12 = TextSpan(
       text: _data.field12,
     );
-    _textPainter13.text = TextSpan(
+    textSpan13 = TextSpan(
       text: _data.field13,
     );
-    _textPainter14.text = TextSpan(
+    textSpan14 = TextSpan(
       text: _data.field14,
     );
-    _textPainter15.text = TextSpan(
+    textSpan15 = TextSpan(
       text: _data.field15,
     );
-    _textPainter16.text = TextSpan(
+    textSpan16 = TextSpan(
       text: _data.field16,
     );
-    _textPainter17.text = TextSpan(
+    textSpan17 = TextSpan(
       text: _data.field17,
     );
-    _textPainter18.text = TextSpan(
+    textSpan18 = TextSpan(
       text: _data.field18,
     );
-    _textPainter19.text = TextSpan(
+    textSpan19 = TextSpan(
       text: _data.field19,
     );
-    _textPainter20.text = TextSpan(
+    textSpan20 = TextSpan(
       text: _data.field20,
     );
 
-    markNeedsLayout();
+    markNeedsPaint();
   }
 
   TextSpan get textSpan1 => _textPainter1.text as TextSpan;
@@ -413,5 +416,10 @@ class CustomDataRenderObject extends RenderBox {
     _textPainter18.paint(context.canvas, offset + Offset(textMaxWidth * 17, 0));
     _textPainter19.paint(context.canvas, offset + Offset(textMaxWidth * 18, 0));
     _textPainter20.paint(context.canvas, offset + Offset(textMaxWidth * 19, 0));
+  }
+
+  @override
+  void describeSemanticsConfiguration(SemanticsConfiguration config) {
+    super.describeSemanticsConfiguration(config);
   }
 }
