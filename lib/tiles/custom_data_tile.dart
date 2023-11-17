@@ -52,6 +52,7 @@ class CustomDataRenderObject extends RenderBox {
   late Data _data;
   late int numberOfItems;
   late List<TextPainter> _textPainters;
+  final double idWidth = 50;
 
   Data get data => _data;
   set data(Data value) {
@@ -78,10 +79,16 @@ class CustomDataRenderObject extends RenderBox {
 
   @override
   void performLayout() {
-    final textMaxWidth = constraints.maxWidth / (numberOfItems + 1);
+    final textMaxWidth = (constraints.maxWidth - idWidth) / (numberOfItems + 1);
 
-    for (var textPainter in _textPainters) {
-      textPainter.layout(maxWidth: textMaxWidth);
+    for (var i = 0; i < _textPainters.length; i++) {
+      if (i == 0) {
+        // Layout the id text painter.
+        _textPainters[i].layout(maxWidth: idWidth);
+      } else {
+        // Layout the field text painters.
+        _textPainters[i].layout(maxWidth: textMaxWidth);
+      }
     }
 
     size = constraints.constrain(
@@ -94,10 +101,17 @@ class CustomDataRenderObject extends RenderBox {
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    final textMaxWidth = constraints.maxWidth / (numberOfItems + 1);
+    final textMaxWidth = (constraints.maxWidth - idWidth) / (numberOfItems + 1);
     for (var i = 0; i < _textPainters.length; i++) {
       final textPainter = _textPainters[i];
-      textPainter.paint(context.canvas, offset + Offset(textMaxWidth * i, 0));
+      if (i == 0) {
+        // Paint the id text painter.
+        textPainter.paint(context.canvas, offset);
+      } else {
+        // Paint the field text painters.
+        final textOffset = Offset(idWidth + (textMaxWidth * i), 0);
+        textPainter.paint(context.canvas, offset + textOffset);
+      }
     }
   }
 

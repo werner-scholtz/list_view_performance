@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
       1000000,
       (index) => Data(
         id: index,
-        numberOfFields: 20,
+        numberOfFields: 36,
       ),
     );
   }

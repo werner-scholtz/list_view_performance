@@ -10,5 +10,5 @@ class Data {
   final int id;
   final int numberOfFields;
 
-  String field(int index) => 'field ${index + 1}';
+  String field(int index) => '${index + 1}';
 }
