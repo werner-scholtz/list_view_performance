@@ -22,4 +22,4 @@ const firstItemKey = ValueKey(0);
 const lastItemKey = ValueKey(99999);
 
 /// The delta used by the [scrollUntilVisible] function.
-const delta = 100000.0;
+const delta = 50000.0;

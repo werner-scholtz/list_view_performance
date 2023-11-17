@@ -32,8 +32,8 @@ Future<void> main() async {
 
           await savePerformanceData(
             performanceData: performanceData,
-            reportKey: listViewReportKey,
-            directory: listViewDirectory,
+            reportKey: customListViewReportKey,
+            directory: customListViewDirectory,
           );
         }
       }
