@@ -4,46 +4,35 @@ import 'package:integration_test/integration_test.dart';
 
 import 'package:list_view_performance/main.dart';
 
+import '../test_driver/perf_driver.dart';
+import 'constants.dart';
 import 'utils.dart';
 
 /// flutter drive --driver=test_driver/perf_driver.dart --target=integration_test/custom_list_view_test.dart -d Linux --profile
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('end-to-end test', () {
-    testWidgets('Custom Render Object List View Performance Test',
-        (tester) async {
-      await tester.pumpWidget(const MyApp());
-      await tester.pumpAndSettle();
+  testWidgets('Performance Test for Custom RenderObject', (tester) async {
+    await tester.pumpWidget(MyApp(items: items));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('custom_list_view')));
+    await tester.pumpAndSettle(const Duration(seconds: 1));
 
-      await navigateToCustom(tester);
-      await tester.pumpAndSettle();
-      await Future.delayed(const Duration(seconds: 3));
+    final firstItemFinder = find.byKey(firstItemKey);
+    final lastItemFinder = find.byKey(lastItemKey);
+    final scrollable = find.byType(Scrollable);
 
-      await binding.traceAction(
-        () async {
-          final scrollableFinder = find.byType(Scrollable);
-          final firstItemFinder = find.byKey(const ValueKey('0'));
-          final lastItemFinder = find.byKey(const ValueKey('999999'));
-
-          await scrollUpAndDown(
-            tester,
-            scrollableFinder: scrollableFinder,
-            lastItemFinder: lastItemFinder,
-            firstItemFinder: firstItemFinder,
-          );
-        },
-        reportKey: 'custom_list_view',
-      );
-    });
+    await binding.watchPerformance(
+      () async {
+        await scrollUpAndDown(
+          tester: tester,
+          firstItemFinder: firstItemFinder,
+          lastItemFinder: lastItemFinder,
+          scrollable: scrollable,
+          delta: delta,
+        );
+      },
+      reportKey: customListViewReportKey,
+    );
   });
-}
-
-Future<void> navigateToCustom(WidgetTester tester) async {
-  final backFinder = find.byKey(
-    const ValueKey('custom_list_view'),
-  );
-  expect(backFinder, findsOneWidget);
-  await tester.tap(backFinder);
-  await tester.pumpAndSettle();
 }

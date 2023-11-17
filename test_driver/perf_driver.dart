@@ -1,6 +1,5 @@
 // ignore: depend_on_referenced_packages
 import 'package:integration_test/integration_test_driver.dart';
-
 import 'utils.dart';
 
 const String performanceDirectory = 'performance_summary';
@@ -14,23 +13,27 @@ Future<void> main() async {
   return integrationDriver(
     responseDataCallback: (data) async {
       if (data != null) {
+        // Check if the data contains the default list view report.
         if (data.containsKey(listViewReportKey)) {
-          await savePerformanceSummary(
-            timelineDirectory: '$listViewDirectory/timelines/',
-            summaryDirectory: '$listViewDirectory/summary/',
-            fileName: 'list_view',
+          final performanceData =
+              data[listViewReportKey] as Map<String, dynamic>;
+
+          await savePerformanceData(
+            performanceData: performanceData,
             reportKey: listViewReportKey,
-            data: data,
+            directory: listViewDirectory,
           );
         }
 
+        // Check if the data contains the custom list view report.
         if (data.containsKey(customListViewReportKey)) {
-          await savePerformanceSummary(
-            timelineDirectory: '$customListViewDirectory/timelines/',
-            summaryDirectory: '$customListViewDirectory/summary/',
-            fileName: 'custom_list_view',
-            reportKey: customListViewReportKey,
-            data: data,
+          final performanceData =
+              data[customListViewReportKey] as Map<String, dynamic>;
+
+          await savePerformanceData(
+            performanceData: performanceData,
+            reportKey: listViewReportKey,
+            directory: listViewDirectory,
           );
         }
       }

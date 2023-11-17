@@ -4,11 +4,25 @@ import 'package:list_view_performance/models/data.dart';
 import 'package:list_view_performance/list_view_default_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  final items = List.generate(
+    1000000,
+    (index) => Data(
+      id: index,
+      numberOfFields: 20,
+    ),
+  );
+
+  runApp(
+    MyApp(items: items),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+    required this.items,
+  });
+  final List<Data> items;
 
   @override
   Widget build(BuildContext context) {
@@ -18,33 +32,26 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(
+        items: items,
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+  const MyHomePage({super.key, required this.items});
+
+  final List<Data> items;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late List<Data> data;
-
   @override
   void initState() {
     super.initState();
-
-    data = List.generate(
-      1000000,
-      (index) => Data(
-        id: index,
-        numberOfFields: 36,
-      ),
-    );
   }
 
   @override
@@ -52,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text('List View Performance'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ListViewDefaultPage(
-                    data: data,
+                    items: widget.items,
                   ),
                 ),
               );
@@ -77,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ListViewCustomRenderObjectPage(
-                    data: data,
+                    items: widget.items,
                   ),
                 ),
               );

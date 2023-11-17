@@ -4,8 +4,8 @@ import 'package:list_view_performance/models/data.dart';
 import 'package:list_view_performance/tiles/custom_data_tile.dart';
 
 class ListViewCustomRenderObjectPage extends StatefulWidget {
-  const ListViewCustomRenderObjectPage({super.key, required this.data});
-  final List<Data> data;
+  const ListViewCustomRenderObjectPage({super.key, required this.items});
+  final List<Data> items;
 
   @override
   State<ListViewCustomRenderObjectPage> createState() =>
@@ -22,14 +22,15 @@ class _ListViewCustomRenderObjectPageState
         title: const Text('ListView Custom RenderObject'),
       ),
       body: ListView.builder(
+        key: const ValueKey('list_view'),
         padding: const EdgeInsets.all(8),
-        prototypeItem: CustomDataTile(data: widget.data.first),
-        itemCount: widget.data.length,
+        prototypeItem: CustomDataTile(data: widget.items.first),
+        itemCount: widget.items.length,
         itemBuilder: (context, index) {
-          final data = widget.data[index];
+          final data = widget.items[index];
           return CustomDataTile(
-            data: data,
             key: ValueKey(index),
+            data: data,
           );
         },
       ),
