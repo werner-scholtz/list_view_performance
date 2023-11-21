@@ -1,14 +1,20 @@
-import 'package:flutter/material.dart';
-
-@immutable
 class Data {
-  const Data({
+  Data({
     required this.id,
-    required this.numberOfFields,
-  });
+    required int numberOfFields,
+  }) {
+    // Generate the columns.
+    columns = List.generate(
+      numberOfFields,
+      (index) {
+        if (index == 0) {
+          return '$id';
+        }
+        return '$index';
+      },
+    );
+  }
 
   final int id;
-  final int numberOfFields;
-
-  String field(int index) => '${index + 1}';
+  late List<String> columns;
 }

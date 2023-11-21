@@ -4,6 +4,7 @@ import 'package:list_view_performance/models/data.dart';
 import 'package:list_view_performance/list_view_default_page.dart';
 
 void main() {
+  // Generate a list of 1 million Data items.
   final items = List.generate(
     1000000,
     (index) => Data(

@@ -21,6 +21,8 @@ class CustomDataTile extends LeafRenderObjectWidget {
     BuildContext context,
     CustomDataRenderObject renderObject,
   ) {
+    // Update the render object's data if it has changed.
+    if (renderObject.data == data) return;
     renderObject.data = data;
   }
 }
@@ -30,8 +32,9 @@ class CustomDataRenderObject extends RenderBox {
     required Data data,
   }) {
     _data = data;
-    numberOfItems = data.numberOfFields;
+    numberOfItems = data.columns.length;
 
+    // Text painter helper function.
     TextPainter textPainter(String value) {
       return TextPainter(
         text: TextSpan(
@@ -43,10 +46,9 @@ class CustomDataRenderObject extends RenderBox {
     }
 
     // Generate the text painters for each field.
-    _textPainters = [
-      textPainter('${data.id}'),
-      for (var i = 0; i < numberOfItems; i++) textPainter(data.field(i))
-    ];
+    _textPainters = data.columns.map((e) {
+      return textPainter(e);
+    }).toList();
   }
 
   late Data _data;
@@ -56,15 +58,18 @@ class CustomDataRenderObject extends RenderBox {
 
   Data get data => _data;
   set data(Data value) {
+    // Guard against unnecessary updates.
     if (_data == value) {
       return;
     }
+
+    // Update the data.
     _data = value;
 
-    // Update the number of items.
+    // Update the text painter text spans.
     for (var i = 0; i < numberOfItems + 1; i++) {
       _textPainters[i].text = TextSpan(
-        text: i == 0 ? '${data.id}' : data.field(i - 1),
+        text: data.columns[i],
         style: const TextStyle(color: Colors.black),
       );
     }
@@ -79,37 +84,52 @@ class CustomDataRenderObject extends RenderBox {
 
   @override
   void performLayout() {
-    final textMaxWidth = (constraints.maxWidth - idWidth) / (numberOfItems + 1);
+    // Calculate the max width of the text painters.
+    final textPainterMaxWidth =
+        (constraints.maxWidth - idWidth) / (numberOfItems);
 
+    // Layout the text painters.
     for (var i = 0; i < _textPainters.length; i++) {
       if (i == 0) {
-        // Layout the id text painter.
+        // Layout the id text painter, with a fixed width.
         _textPainters[i].layout(maxWidth: idWidth);
       } else {
         // Layout the field text painters.
-        _textPainters[i].layout(maxWidth: textMaxWidth);
+        _textPainters[i].layout(maxWidth: textPainterMaxWidth);
       }
     }
 
+    // Use the full width of the constraints.
+    final width = constraints.maxWidth;
+
+    // Use the height of the first text painter.
+    final height = _textPainters.first.height;
+
+    // Set the size of this render object.
     size = constraints.constrain(
       Size(
-        constraints.maxWidth,
-        _textPainters.first.height,
+        width,
+        height,
       ),
     );
   }
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    final textMaxWidth = (constraints.maxWidth - idWidth) / (numberOfItems + 1);
+    // Calculate the max width of the text painters.
+    final textMaxWidth = (constraints.maxWidth - idWidth) / (numberOfItems);
+
+    // Loop through the text painters and paint them.
     for (var i = 0; i < _textPainters.length; i++) {
       final textPainter = _textPainters[i];
       if (i == 0) {
         // Paint the id text painter.
         textPainter.paint(context.canvas, offset);
       } else {
-        // Paint the field text painters.
+        // Calculate the offset for the field text painters.
         final textOffset = Offset(idWidth + (textMaxWidth * i), 0);
+
+        // Paint the field text painters.
         textPainter.paint(context.canvas, offset + textOffset);
       }
     }

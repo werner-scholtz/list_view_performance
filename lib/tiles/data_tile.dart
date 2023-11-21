@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:list_view_performance/models/data.dart';
 
+/// The [DataTile] widget displays the data from a [Data] object in a row.
 class DataTile extends StatelessWidget {
   const DataTile({
     super.key,
@@ -11,12 +12,16 @@ class DataTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Generate the text widgets for each field.
+    final columns = data.columns.map(
+      (e) {
+        return Text(e);
+      },
+    ).toList();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text('${data.id}'),
-        for (var i = 0; i < data.numberOfFields; i++) Text(data.field(i))
-      ],
+      children: columns,
     );
   }
 }
