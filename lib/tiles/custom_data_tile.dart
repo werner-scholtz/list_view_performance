@@ -21,8 +21,7 @@ class CustomDataTile extends LeafRenderObjectWidget {
     BuildContext context,
     CustomDataRenderObject renderObject,
   ) {
-    // Update the render object's data if it has changed.
-    if (renderObject.data == data) return;
+    // Update the render object's data.
     renderObject.data = data;
   }
 }
@@ -42,6 +41,8 @@ class CustomDataRenderObject extends RenderBox {
           style: const TextStyle(color: Colors.black),
         ),
         textDirection: TextDirection.ltr,
+        ellipsis: '.',
+        maxLines: 1,
       );
     }
 
@@ -55,6 +56,10 @@ class CustomDataRenderObject extends RenderBox {
   late int numberOfItems;
   late List<TextPainter> _textPainters;
   final double idWidth = 50;
+
+  /// The width of the field text painters.
+  double get fieldTextPainterWidth =>
+      (constraints.maxWidth - idWidth) / numberOfItems;
 
   Data get data => _data;
   set data(Data value) {
@@ -79,15 +84,8 @@ class CustomDataRenderObject extends RenderBox {
     markNeedsPaint();
   }
 
-  // @override
-  // bool get needsCompositing => false;
-
   @override
   void performLayout() {
-    // Calculate the max width of the text painters.
-    final textPainterMaxWidth =
-        (constraints.maxWidth - idWidth) / (numberOfItems);
-
     // Layout the text painters.
     for (var i = 0; i < _textPainters.length; i++) {
       if (i == 0) {
@@ -95,7 +93,7 @@ class CustomDataRenderObject extends RenderBox {
         _textPainters[i].layout(maxWidth: idWidth);
       } else {
         // Layout the field text painters.
-        _textPainters[i].layout(maxWidth: textPainterMaxWidth);
+        _textPainters[i].layout(maxWidth: fieldTextPainterWidth);
       }
     }
 
@@ -107,18 +105,12 @@ class CustomDataRenderObject extends RenderBox {
 
     // Set the size of this render object.
     size = constraints.constrain(
-      Size(
-        width,
-        height,
-      ),
+      Size(width, height),
     );
   }
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    // Calculate the max width of the text painters.
-    final textMaxWidth = (constraints.maxWidth - idWidth) / (numberOfItems);
-
     // Loop through the text painters and paint them.
     for (var i = 0; i < _textPainters.length; i++) {
       final textPainter = _textPainters[i];
@@ -127,7 +119,7 @@ class CustomDataRenderObject extends RenderBox {
         textPainter.paint(context.canvas, offset);
       } else {
         // Calculate the offset for the field text painters.
-        final textOffset = Offset(idWidth + (textMaxWidth * i), 0);
+        final textOffset = Offset(idWidth + (fieldTextPainterWidth * i), 0);
 
         // Paint the field text painters.
         textPainter.paint(context.canvas, offset + textOffset);
