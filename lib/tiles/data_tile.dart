@@ -13,9 +13,21 @@ class DataTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Generate the text widgets for each field.
-    final columns = data.columns.map(
+    final columns = data.columns.indexed.map(
       (e) {
-        return Text(e);
+        final index = e.$1;
+        final value = e.$2;
+        final text = Text(value);
+
+        // The first column is the id, so give it a fixed width.
+        if (index == 0) {
+          return SizedBox(
+            width: 52,
+            child: text,
+          );
+        }
+
+        return text;
       },
     ).toList();
 

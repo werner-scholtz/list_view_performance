@@ -55,7 +55,7 @@ class CustomDataRenderObject extends RenderBox {
   late Data _data;
   late int numberOfItems;
   late List<TextPainter> _textPainters;
-  final double idWidth = 50;
+  final double idWidth = 52;
 
   /// The width of the field text painters.
   double get fieldTextPainterWidth =>

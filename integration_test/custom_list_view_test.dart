@@ -11,6 +11,7 @@ import 'utils.dart';
 /// flutter drive --driver=test_driver/perf_driver.dart --target=integration_test/custom_list_view_test.dart -d Linux --profile
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   testWidgets('Performance Test for Custom RenderObject', (tester) async {
     await tester.pumpWidget(MyApp(items: items));
