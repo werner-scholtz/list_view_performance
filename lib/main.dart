@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The default ListView.
     final defaultListView = ListTile(
       key: const ValueKey('default_list_view'),
-      title: const Text('Default ListView'),
+      title: const Text('ListView DataTile'),
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The custom RenderObject ListView.
     final customListView = ListTile(
       key: const ValueKey('custom_list_view'),
-      title: const Text('Custom RenderObject ListView'),
+      title: const Text('ListView CustomDataTile'),
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(

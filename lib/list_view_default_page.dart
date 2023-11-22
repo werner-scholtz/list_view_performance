@@ -21,7 +21,7 @@ class _ListViewDefaultPageState extends State<ListViewDefaultPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('ListView Default'),
+        title: const Text('ListView DataTile'),
       ),
       body: ListView.builder(
         key: const ValueKey('list_view'),
