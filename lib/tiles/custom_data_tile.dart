@@ -118,11 +118,14 @@ class CustomDataRenderObject extends RenderBox {
         // Paint the id text painter.
         textPainter.paint(context.canvas, offset);
       } else {
-        // Calculate the offset for the field text painters.
-        final textOffset = Offset(idWidth + (fieldTextPainterWidth * i), 0);
+        // Calculate the x offset for the field text painter.
+        final textPainterX = idWidth + (fieldTextPainterWidth * i);
+
+        /// Calculate the offset for the field text painter.
+        final textPainterOffset = Offset(textPainterX, 0) + offset;
 
         // Paint the field text painters.
-        textPainter.paint(context.canvas, offset + textOffset);
+        textPainter.paint(context.canvas, textPainterOffset);
       }
     }
   }
