@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // The default ListView.
     final defaultListView = ListTile(
-      key: const ValueKey('default_list_view'),
+      key: const ValueKey('data_tile_list_view'),
       title: const Text('ListView DataTile'),
       onTap: () {
         Navigator.of(context).push(
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // The custom RenderObject ListView.
     final customListView = ListTile(
-      key: const ValueKey('custom_list_view'),
+      key: const ValueKey('custom_data_tile_list_view'),
       title: const Text('ListView CustomDataTile'),
       onTap: () {
         Navigator.of(context).push(

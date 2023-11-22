@@ -16,7 +16,7 @@ void main() {
   testWidgets('Performance Test for CustomDataTile', (tester) async {
     await tester.pumpWidget(MyApp(items: items));
     await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const ValueKey('custom_list_view')));
+    await tester.tap(find.byKey(const ValueKey('custom_data_tile_list_view')));
     await tester.pumpAndSettle(const Duration(milliseconds: 250));
 
     final firstItemFinder = find.byKey(firstItemKey);
@@ -33,7 +33,7 @@ void main() {
           delta: delta,
         );
       },
-      reportKey: customListViewReportKey,
+      reportKey: customDataTileReportKey,
     );
   });
 }
