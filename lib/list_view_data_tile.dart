@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:list_view_performance/models/data.dart';
 import 'package:list_view_performance/tiles/data_tile.dart';
 
-class ListViewDefaultPage extends StatefulWidget {
-  const ListViewDefaultPage({
+class ListViewDataTilePage extends StatefulWidget {
+  const ListViewDataTilePage({
     super.key,
     required this.items,
     required this.itemExtent,
+    required this.idWidth,
   });
   final List<Data> items;
   final double itemExtent;
+  final double idWidth;
 
   @override
-  State<ListViewDefaultPage> createState() => _ListViewDefaultPageState();
+  State<ListViewDataTilePage> createState() => _ListViewDataTilePageState();
 }
 
-class _ListViewDefaultPageState extends State<ListViewDefaultPage> {
+class _ListViewDataTilePageState extends State<ListViewDataTilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +35,7 @@ class _ListViewDefaultPageState extends State<ListViewDefaultPage> {
           return DataTile(
             key: ValueKey(index),
             data: data,
+            idWidth: widget.idWidth,
           );
         },
       ),

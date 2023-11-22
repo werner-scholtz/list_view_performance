@@ -7,9 +7,11 @@ class CustomDataTile extends LeafRenderObjectWidget {
   const CustomDataTile({
     super.key,
     required this.data,
+    required this.idWidth,
   });
 
   final Data data;
+  final double idWidth;
 
   @override
   RenderObject createRenderObject(BuildContext context) {
@@ -23,6 +25,7 @@ class CustomDataTile extends LeafRenderObjectWidget {
   ) {
     // Update the render object's data.
     renderObject.data = data;
+    renderObject._idWidth = idWidth;
   }
 }
 
@@ -53,9 +56,9 @@ class CustomDataRenderObject extends RenderBox {
   }
 
   late Data _data;
+  late double _idWidth;
   late int numberOfItems;
   late List<TextPainter> _textPainters;
-  final double idWidth = 52;
 
   @override
   bool get needsCompositing => false;
@@ -83,6 +86,22 @@ class CustomDataRenderObject extends RenderBox {
     }
 
     // Since the layout has not changed, we don't need to call markNeedsLayout().
+    // Mark the render object as needing to repaint.
+    markNeedsPaint();
+  }
+
+  double get idWidth => _idWidth;
+  set idWidth(double value) {
+    // Guard against unnecessary updates.
+    if (_idWidth == value) {
+      return;
+    }
+
+    // Update the id width.
+    _idWidth = value;
+
+    // Since the layout has changed we need to call markNeedsLayout().
+    markNeedsLayout();
     // Mark the render object as needing to repaint.
     markNeedsPaint();
   }

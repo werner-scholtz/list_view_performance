@@ -3,22 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:list_view_performance/models/data.dart';
 import 'package:list_view_performance/tiles/custom_data_tile.dart';
 
-class ListViewCustomRenderObjectPage extends StatefulWidget {
-  const ListViewCustomRenderObjectPage({
+class ListViewCustomDataTilePage extends StatefulWidget {
+  const ListViewCustomDataTilePage({
     super.key,
     required this.items,
     required this.itemExtent,
+    required this.idWidth,
   });
   final List<Data> items;
   final double itemExtent;
+  final double idWidth;
 
   @override
-  State<ListViewCustomRenderObjectPage> createState() =>
-      _ListViewCustomRenderObjectPageState();
+  State<ListViewCustomDataTilePage> createState() =>
+      _ListViewCustomDataTilePageState();
 }
 
-class _ListViewCustomRenderObjectPageState
-    extends State<ListViewCustomRenderObjectPage> {
+class _ListViewCustomDataTilePageState
+    extends State<ListViewCustomDataTilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +38,7 @@ class _ListViewCustomRenderObjectPageState
           return CustomDataTile(
             key: ValueKey(index),
             data: data,
+            idWidth: widget.idWidth,
           );
         },
       ),

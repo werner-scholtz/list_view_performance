@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:list_view_performance/list_view_custom_render_object_page.dart';
+import 'package:list_view_performance/list_view_custom_data_tile.dart';
 import 'package:list_view_performance/models/data.dart';
-import 'package:list_view_performance/list_view_default_page.dart';
+import 'package:list_view_performance/list_view_data_tile.dart';
 
 void main() {
   // Generate a list of 1 million Data items.
@@ -56,6 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
   /// A cheap trick to improve performance would be to make this value larger so fewer items are displayed at a time.
   final itemExtent = 24.0;
 
+  /// The width of the id column.
+  final idWidth = 52.0;
+
   @override
   Widget build(BuildContext context) {
     // The default ListView.
@@ -65,9 +68,10 @@ class _MyHomePageState extends State<MyHomePage> {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ListViewDefaultPage(
+            builder: (context) => ListViewDataTilePage(
               items: widget.items,
               itemExtent: itemExtent,
+              idWidth: idWidth,
             ),
           ),
         );
@@ -81,9 +85,10 @@ class _MyHomePageState extends State<MyHomePage> {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ListViewCustomRenderObjectPage(
+            builder: (context) => ListViewCustomDataTilePage(
               items: widget.items,
               itemExtent: itemExtent,
+              idWidth: idWidth,
             ),
           ),
         );

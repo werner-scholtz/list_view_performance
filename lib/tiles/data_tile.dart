@@ -6,9 +6,11 @@ class DataTile extends StatelessWidget {
   const DataTile({
     super.key,
     required this.data,
+    required this.idWidth,
   });
 
   final Data data;
+  final double idWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class DataTile extends StatelessWidget {
         // The first column is the id, so give it a fixed width.
         if (index == 0) {
           return SizedBox(
-            width: 52,
+            width: idWidth,
             child: text,
           );
         }
