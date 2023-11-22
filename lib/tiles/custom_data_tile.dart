@@ -15,7 +15,10 @@ class CustomDataTile extends LeafRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return CustomDataRenderObject(data: data);
+    return CustomDataRenderObject(
+      data: data,
+      idWidth: idWidth,
+    );
   }
 
   @override
@@ -32,8 +35,10 @@ class CustomDataTile extends LeafRenderObjectWidget {
 class CustomDataRenderObject extends RenderBox {
   CustomDataRenderObject({
     required Data data,
+    required double idWidth,
   }) {
     _data = data;
+    _idWidth = idWidth;
     numberOfItems = data.columns.length;
 
     // Text painter helper function.
