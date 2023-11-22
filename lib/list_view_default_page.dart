@@ -3,8 +3,14 @@ import 'package:list_view_performance/models/data.dart';
 import 'package:list_view_performance/tiles/data_tile.dart';
 
 class ListViewDefaultPage extends StatefulWidget {
-  const ListViewDefaultPage({super.key, required this.items});
+  const ListViewDefaultPage({
+    super.key,
+    required this.items,
+    required this.itemExtent,
+  });
   final List<Data> items;
+  final double itemExtent;
+
   @override
   State<ListViewDefaultPage> createState() => _ListViewDefaultPageState();
 }
@@ -21,7 +27,7 @@ class _ListViewDefaultPageState extends State<ListViewDefaultPage> {
         key: const ValueKey('list_view'),
         padding: const EdgeInsets.all(8),
         itemCount: widget.items.length,
-        prototypeItem: DataTile(data: widget.items.first),
+        itemExtent: widget.itemExtent,
         itemBuilder: (context, index) {
           final data = widget.items[index];
           return DataTile(

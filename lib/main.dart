@@ -9,7 +9,7 @@ void main() {
     1000000,
     (index) => Data(
       id: index,
-      numberOfFields: 20,
+      numberOfFields: 40,
     ),
   );
 
@@ -50,13 +50,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  /// The item extent for the list view,
+  /// this is to force both lists to display the same amount of items in the viewport.
+  ///
+  /// A cheap trick to improve performance would be to make this value larger so fewer items are displayed at a time.
+  final itemExtent = 24.0;
 
   @override
   Widget build(BuildContext context) {
+    // The default ListView.
+    final defaultListView = ListTile(
+      key: const ValueKey('default_list_view'),
+      title: const Text('Default ListView'),
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ListViewDefaultPage(
+              items: widget.items,
+              itemExtent: itemExtent,
+            ),
+          ),
+        );
+      },
+    );
+
+    // The custom RenderObject ListView.
+    final customListView = ListTile(
+      key: const ValueKey('custom_list_view'),
+      title: const Text('Custom RenderObject ListView'),
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ListViewCustomRenderObjectPage(
+              items: widget.items,
+              itemExtent: itemExtent,
+            ),
+          ),
+        );
+      },
+    );
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -65,32 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          ListTile(
-            key: const ValueKey('default_list_view'),
-            title: const Text('Default ListView'),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ListViewDefaultPage(
-                    items: widget.items,
-                  ),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            key: const ValueKey('custom_list_view'),
-            title: const Text('Custom RenderObject ListView'),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ListViewCustomRenderObjectPage(
-                    items: widget.items,
-                  ),
-                ),
-              );
-            },
-          ),
+          defaultListView,
+          customListView,
         ],
       ),
     );

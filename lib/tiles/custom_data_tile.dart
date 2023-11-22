@@ -79,8 +79,8 @@ class CustomDataRenderObject extends RenderBox {
     markNeedsPaint();
   }
 
-  @override
-  bool get needsCompositing => false;
+  // @override
+  // bool get needsCompositing => false;
 
   @override
   void performLayout() {
