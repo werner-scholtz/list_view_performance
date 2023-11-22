@@ -57,6 +57,9 @@ class CustomDataRenderObject extends RenderBox {
   late List<TextPainter> _textPainters;
   final double idWidth = 52;
 
+  @override
+  bool get needsCompositing => false;
+
   /// The width of the field text painters.
   double get fieldTextPainterWidth =>
       (constraints.maxWidth - idWidth) / numberOfItems;

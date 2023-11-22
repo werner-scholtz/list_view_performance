@@ -13,11 +13,11 @@ void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
-  testWidgets('Performance Test for Custom RenderObject', (tester) async {
+  testWidgets('Performance Test for CustomDataTile', (tester) async {
     await tester.pumpWidget(MyApp(items: items));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const ValueKey('custom_list_view')));
-    await tester.pumpAndSettle(const Duration(seconds: 1));
+    await tester.pumpAndSettle(const Duration(milliseconds: 250));
 
     final firstItemFinder = find.byKey(firstItemKey);
     final lastItemFinder = find.byKey(lastItemKey);

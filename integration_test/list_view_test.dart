@@ -11,12 +11,12 @@ import 'utils.dart';
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
-  testWidgets('Performance Test for Default ListView', (tester) async {
+  testWidgets('Performance Test for DataTile', (tester) async {
     await tester.pumpWidget(MyApp(items: items));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const ValueKey('default_list_view')));
     await tester.pumpAndSettle();
-    await tester.pumpAndSettle(const Duration(seconds: 1));
+    await tester.pumpAndSettle(const Duration(milliseconds: 250));
 
     final firstItemFinder = find.byKey(firstItemKey);
     final lastItemFinder = find.byKey(lastItemKey);
