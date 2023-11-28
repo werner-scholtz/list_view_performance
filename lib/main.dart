@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:list_view_performance/custom_data_tile_screen.dart';
-import 'package:list_view_performance/data_tile_screen.dart';
 import 'package:list_view_performance/list_view_custom_data_tile.dart';
 import 'package:list_view_performance/models/data.dart';
 import 'package:list_view_performance/list_view_data_tile.dart';
