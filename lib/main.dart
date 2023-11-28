@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:list_view_performance/custom_data_tile_screen.dart';
+import 'package:list_view_performance/data_tile_screen.dart';
 import 'package:list_view_performance/list_view_custom_data_tile.dart';
 import 'package:list_view_performance/models/data.dart';
 import 'package:list_view_performance/list_view_data_tile.dart';
@@ -62,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // The default ListView.
-    final defaultListView = ListTile(
+    final dataTileListView = ListTile(
       key: const ValueKey('data_tile_list_view'),
       title: const Text('ListView DataTile'),
       onTap: () {
@@ -79,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     // The custom RenderObject ListView.
-    final customListView = ListTile(
+    final customDataTileListView = ListTile(
       key: const ValueKey('custom_data_tile_list_view'),
       title: const Text('ListView CustomDataTile'),
       onTap: () {
@@ -103,8 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          defaultListView,
-          customListView,
+          dataTileListView,
+          customDataTileListView,
         ],
       ),
     );

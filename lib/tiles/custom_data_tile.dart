@@ -161,4 +161,12 @@ class CustomDataRenderObject extends RenderBox {
   void describeSemanticsConfiguration(SemanticsConfiguration config) {
     super.describeSemanticsConfiguration(config);
   }
+
+  @override
+  void dispose() {
+    for (var textPainter in _textPainters) {
+      textPainter.dispose();
+    }
+    super.dispose();
+  }
 }
